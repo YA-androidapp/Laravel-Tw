@@ -19,6 +19,8 @@ DB_USERNAME=postgres
 DB_PASSWORD=password
 ```
 
+> $ php artisan make:auth
+>
 > $ php artisan migrate
 >
 > $ php artisan serve
