@@ -1,58 +1,38 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
 use Auth;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 
 class SocialiteController extends Controller
 {
-    use AuthenticatesUsers;
-    protected $redirectTo = '/home';
-
-    public function redirectToProvider()
+    /**
+     * Handle Social login request
+     *
+     * @return response
+     */
+    public function redirectToProvider($provider)
     {
-        return Socialite::driver('twitter')->redirect();
+        return Socialite::driver($provider)->redirect();
     }
 
-    public function handleProviderCallback()
+    /**
+     * Obtain the user information from Social Logged in.
+     * @param $social
+     * @return Response
+     */
+    public function handleProviderCallback($provider)
     {
-        try {
-            $user = Socialite::driver('twitter')->user();
-        } catch (Exception $e) {
-            return redirect('auth/twitter');
+        $userSocial = Socialite::driver($provider)->user();
+        $user = User::where(['email' => $userSocial->getEmail()])->first();
+        if ($user) {
+            Auth::login($user);
+            return redirect()->action('HomeController@index');
+        } else {
+            return view('auth.register', ['name' => $userSocial->getName(), 'email' => $userSocial->getEmail()]);
         }
-
-        $authUser = $this->findOrCreateUser($user);
-
-        Auth::login($authUser, true);
-
-        return redirect()->route('home');
-    }
-    private function findOrCreateUser($twitterUser)
-    {
-        $authUser = User::where('twitter_id', $twitterUser->id)->first();
-
-        if ($authUser) {
-            return $authUser;
-        }
-
-        return User::create([
-            'name' => $twitterUser->name,
-            'twitter_nickname' => $twitterUser->nickname,
-            'twitter_id' => $twitterUser->id,
-            'twitter_avatar' => $twitterUser->avatar_original,
-        ]);
-    }
-    public function logout()
-    {
-        Auth::logout();
-        return redirect()->route('login');
-    }
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
     }
 }
