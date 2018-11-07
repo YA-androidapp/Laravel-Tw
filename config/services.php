@@ -40,6 +40,20 @@ return [
         ],
     ],
 
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_KEY'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => env('GITHUB_CLIENT_CALLBACK'),
+    ],
+
+    // $ composer require socialiteproviders/microsoft-graph
+    // https://apps.dev.microsoft.com/
+    'graph' => [
+        'client_id' => env('GRAPH_CLIENT_KEY'),
+        'client_secret' => env('GRAPH_CLIENT_SECRET'),
+        'redirect' => env('GRAPH_CLIENT_CALLBACK'),
+    ],
+
     'twitter' => [
         'client_id' => env('TWITTER_CLIENT_KEY'),
         'client_secret' => env('TWITTER_CLIENT_SECRET'),
