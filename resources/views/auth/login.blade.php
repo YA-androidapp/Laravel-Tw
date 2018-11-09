@@ -53,15 +53,19 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">
                                     {{ __('Login') }}
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                <a href="{{ url('auth/github') }}" class="btn btn-lg btn-block btn-social btn-github"><i class="fa fa-github"></i>Sign in with GitHub</a>
+
+                                <a href="{{ url('auth/twitter') }}" class="btn btn-lg btn-block btn-social btn-twitter"><i class="fa fa-twitter"></i>Sign in with twitter</a>
+
+                                <a href="{{ url('auth/graph') }}" class="btn btn-lg btn-block btn-social btn-windows"><i class="fa fa-windows"></i>Sign in with Microsoft</a>
+
+                                <a class="btn btn-lg btn-link" href="{{ route('password.request') }}">
                                     {{ __('Forgot Your Password?') }}
                                 </a>
-
-                                <a href="{{ url('auth/twitter') }}" class="btn btn-social-icon btn-twitter"><i class="fa fa-twitter"></i></a>
                             </div>
                         </div>
                     </form>
