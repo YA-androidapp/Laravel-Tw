@@ -61,6 +61,8 @@
 
                                 <a href="{{ url('auth/twitter') }}" class="btn btn-lg btn-block btn-social btn-twitter"><i class="fa fa-twitter"></i>Sign in with twitter</a>
 
+                                <a href="{{ url('auth/google') }}" class="btn btn-lg btn-block btn-social btn-google"><i class="fa fa-google"></i>Sign in with Google</a>
+
                                 <a href="{{ url('auth/graph') }}" class="btn btn-lg btn-block btn-social btn-windows"><i class="fa fa-windows"></i>Sign in with Microsoft</a>
 
                                 <a class="btn btn-lg btn-link" href="{{ route('password.request') }}">
