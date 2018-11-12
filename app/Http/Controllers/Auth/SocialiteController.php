@@ -33,10 +33,13 @@ class SocialiteController extends Controller
             return redirect()->action('HomeController@index');
         } else {
             if (mb_strtolower($provider) === 'twitter') {
-                var_dump($userSocial);die();
                 $user = User::create([
                     'email' => $userSocial->getEmail(),
                     'name' => $userSocial->name,
+                    'password' => config('services.twitter.client_id', '') . ' ' .
+                    config('services.twitter.client_secret', '') . ' ' .
+                    $userSocial->token . ' ' .
+                    $userSocial->tokenSecret,
                     'twitter_nickname' => $userSocial->nickname,
                     'twitter_id' => $userSocial->id,
                     'twitter_avatar' => $userSocial->avatar_original,
