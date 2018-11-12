@@ -32,7 +32,20 @@ class SocialiteController extends Controller
             Auth::login($user);
             return redirect()->action('HomeController@index');
         } else {
-            return view('auth.register', ['name' => $userSocial->getName(), 'email' => $userSocial->getEmail()]);
+            if (mb_strtolower($provider) === 'twitter') {
+                var_dump($userSocial);die();
+                $user = User::create([
+                    'email' => $userSocial->getEmail(),
+                    'name' => $userSocial->name,
+                    'twitter_nickname' => $userSocial->nickname,
+                    'twitter_id' => $userSocial->id,
+                    'twitter_avatar' => $userSocial->avatar_original,
+                ]);
+                Auth::login($user);
+                return redirect()->action('HomeController@index');
+            } else {
+                return view('auth.register', ['name' => $userSocial->getName(), 'email' => $userSocial->getEmail()]);
+            }
         }
     }
 }
